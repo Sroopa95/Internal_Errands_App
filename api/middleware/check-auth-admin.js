@@ -5,8 +5,11 @@ module.exports =(req,res,next) =>{
         const token = req.headers.authorization.split(" ")[1];
         const decoded = jwt.verify(token, process.env.JWT_KEY);
         req.userData = decoded;
-        console.log(req.userData);
-        next()
+        if(req.userData.admin){
+            next();
+        }else{
+            throw new Error('permission denied, you are not admin')
+        }
     }catch(error){
         return res.status(401).json({
             message: 'auth failed'
