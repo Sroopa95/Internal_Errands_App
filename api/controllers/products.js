@@ -2,7 +2,8 @@ const mongoose  = require('mongoose');
 const Product = require('../models/product');
 
 exports.products_get_all = (req,res,next) => {
-    Product.find()
+    console.log(req.body.restaurant);
+    Product.find({"restaurant": req.params.restaurant})
     .select('name price description _id productImage restaurant')
     .exec()
     .then(doc =>{
@@ -13,8 +14,7 @@ exports.products_get_all = (req,res,next) => {
                         name: doc.name,
                         price: doc.price,
                         productImage: doc.productImage,
-                        restaurant: doc.restaurant,
-                        
+                        restaurant: doc.restaurant,   
                         _id: doc._id,
                         request: {
                             type: 'GET',
@@ -31,7 +31,6 @@ exports.products_get_all = (req,res,next) => {
         }); 
     });
 }
-
 exports.products_post_product = (req,res,next) => {
     console.log(req.file);
     const product =  new Product({
@@ -53,6 +52,7 @@ exports.products_post_product = (req,res,next) => {
                 price: result.price,
                 _id: result._id,
                 productImage: result.productImage,
+                restaurant: result.restaurant,
                 request: {
                     type: 'GET',
                     url: 'http://localhost:3000/products/' + result._id

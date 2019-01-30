@@ -17,7 +17,7 @@ const upload = multer({storage:storage});
 
 const ProductsController = require('../controllers/products');
 
-router.get('/',checkAuth,ProductsController.products_get_all);
+router.get('/:restaurant',checkAuth,ProductsController.products_get_all);
 
 router.post('/',checkAuthAdmin,upload.single('productImage'),ProductsController.products_post_product);
 

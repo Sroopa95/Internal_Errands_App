@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const  productRoutes = require('./api/routes/products');
 const  userRoutes = require('./api/routes/users');
 const  orderRoutes = require('./api/routes/orders');
+const  restaurantRoutes = require('./api/routes/restaurants');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://charlesperez:' + process.env.MONGO_ATLAS_PW + '@node-rest-shop-khyw1.mongodb.net/test?retryWrites=true',{useNewUrlParser:true});
@@ -31,6 +32,7 @@ app.use((req,res,next)=>{
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
 app.use('/users',userRoutes);
+app.use('/restaurants',restaurantRoutes);
 
 app.use((req,res,next) =>{
     const error = new Error('not found');

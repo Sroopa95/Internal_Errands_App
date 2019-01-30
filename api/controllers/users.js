@@ -50,7 +50,6 @@ exports.users_post_user = (req,res,next)=>{
     });
 }
 
-
 exports.users_signup_user = (req,res,next) => {
     User.find({email: req.body.email})
     .exec()
